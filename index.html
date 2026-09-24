@@ -221,6 +221,48 @@ h3{margin:18px 2px 6px;font-size:21px}
 .pens{margin:10px 0}.pens div{display:flex;align-items:center;gap:5px;margin:4px 0}.pens span{width:120px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pens i{width:16px;height:16px;border-radius:50%}.pens i.g{background:var(--green)}.pens i.x{background:var(--red)}
 
+/* modo */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.mode{text-align:left;border:2px solid var(--line);background:rgba(255,255,255,.06);border-radius:14px;padding:12px}
+.mode b{display:block;font-size:22px;font-style:italic}.mode span{font-size:15px;color:#c6d2ec}
+.mode.on{border-color:var(--gold);background:rgba(255,194,26,.16)}.mode.on b{color:var(--gold)}
+/* simulação */
+.clockrow{grid-column:1/-1;display:flex;align-items:center;gap:10px}
+.clock{font-weight:800;font-size:20px;min-width:64px;color:var(--ink)}.clock small{font-size:12px;color:var(--muted)}
+.clock.run{color:var(--green)}
+.prog{flex:1;height:6px;border-radius:3px;background:#dde3ee;overflow:hidden}.prog i{display:block;height:100%;background:var(--green);transition:width .3s}
+.simarena{justify-content:flex-start;align-items:stretch;overflow:hidden;padding-top:10px}
+.prebox{overflow-y:auto}.prebox h3{margin:6px 0}
+.cmp{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:6px 4px;border-top:1px solid var(--line);font-size:22px;font-weight:800}
+.cmp em{font-style:normal;font-size:16px;color:#aebbd9;font-weight:600;min-width:80px;text-align:center}.cmp span:last-child{text-align:right}
+.styles{display:grid;grid-template-columns:1fr 1fr;gap:6px}.styles .chip{border-radius:10px;padding:8px 4px}
+.up{color:#7ee2a8}.down{color:#ff8a98}
+.stats2{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.sbar{display:grid;grid-template-columns:44px 1fr auto 1fr 44px;align-items:center;gap:6px;font-weight:800}
+.sbar span:last-child{text-align:right}.sbar em{font-style:normal;font-size:14px;color:#aebbd9;font-weight:600;min-width:84px;text-align:center}
+.sbar div{height:8px;border-radius:4px;background:rgba(255,255,255,.1);display:flex;justify-content:flex-end;overflow:hidden}
+.sbar div.r{justify-content:flex-start}.sbar div i{background:var(--gold);transition:width .3s}.sbar div.r i{background:#ff8a98}
+.feed{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1;min-height:0}
+.feed li{display:flex;gap:10px;padding:6px 8px;border-top:1px solid var(--line);font-size:17px}.feed li.new{animation:deal .3s ease-out}
+.feed em{font-style:normal;font-weight:800;color:#aebbd9;min-width:34px}
+.feed .s-A{border-left:3px solid var(--gold)}.feed .s-B{border-left:3px solid #ff8a98}
+.feed .e-gol{background:rgba(255,194,26,.14);font-size:19px}.feed .e-gol.s-B{background:rgba(224,35,60,.18)}
+.feed .e-apito{color:#c6d2ec;font-style:italic}.feed .e-tec{color:#7ee2a8}
+.feed small{color:#c6d2ec}
+.feed.post{margin:10px 0;color:var(--ink)}.feed.post li{border-color:#dde3ee;animation:none}.feed.post em{color:var(--muted)}.feed.post small{color:var(--muted)}
+.tact{margin-bottom:6px}.tact summary{font-weight:700;color:#c6d2ec;padding:2px}
+.speed{display:flex;gap:4px;align-items:center}.speed .chip{padding:6px 10px}
+.link{background:none;border:0;color:#aebbd9;text-decoration:underline;font-weight:600;padding:6px 2px;display:block;margin:2px auto 0}
+.toggle:disabled{opacity:.6}
+.slot .ball{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-style:normal;font-size:13px;white-space:nowrap}
+.goalfx{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);z-index:30;padding:14px 34px;border-radius:18px;text-align:center;pointer-events:none;opacity:0}
+.goalfx b{display:block;font-size:56px;font-style:italic;line-height:1;color:#fff}.goalfx span{font-size:22px;font-weight:700}
+.goalfx.enter{animation:goal 1.8s ease-out}
+@keyframes goal{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}25%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0}}
+.match.sim .mleft .pitch{--sw:clamp(38px,min(6.4dvh,15vw),62px)}
+@media (orientation:portrait){.match.sim{grid-template-rows:auto minmax(0,1fr) minmax(0,.8fr) auto}.match.sim .mleft{grid-row:3}}
+@media (max-height:520px){.feed li{font-size:15px;padding:3px 6px}.stats2{gap:2px}.goalfx b{font-size:40px}.link{display:none}
+}
 @media (max-height:520px){
  .duel .card .stat:not(.hl),.duel .card .chem,.duel .card .sl,.duel .card .rib{display:none}
  .duel .card .stat.hl{font-size:20px;margin-top:2px}.duel .cback{min-height:110px}
@@ -277,7 +319,7 @@ const chemTotal=ch=>Object.values(ch).reduce((s,x)=>s+x.b,0);
 
 // ===== Estado =====
 const KEY="stc_v2";
-let S=null, SETUP={copas:YEARS.slice(),form:"4-3-3"}, MSG="";
+let S=null, SETUP={copas:YEARS.slice(),form:"4-3-3",mode:"cartas"}, MSG="";
 const ANIM=new Set(); const once=k=>{ if(ANIM.has(k)) return ""; ANIM.add(k); return " enter"; };
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} }
 function loadSave(){ try{const s=localStorage.getItem(KEY); return s?JSON.parse(s):null;}catch(e){return null;} }
@@ -503,10 +545,10 @@ function pitch(o){
     const st=`left:${P[i].x}%;top:${P[i].y}%`;
     if(!c) return `<button class="slot empty${o.open===i?" open":""}" style="${st}" onclick="openSlot(${i})"><b>+</b><span>${s.pos}</span></button>`;
     const used=o.used&&o.used.has(c.id), sel=o.sel===c.id, val=o.cat?C[c.id][o.cat]+ch:c.ov+ch;
-    const click=o.mode==="match"?(used?"":`selCard('${c.id}')`):`openSlot(${i})`;
+    const click=o.mode==="match"?(used?"":`selCard('${c.id}')`):o.mode==="sim"?"":`openSlot(${i})`;
     const fl=o.flash&&o.flash[i]?`<em class="float${once("fl"+S.flashN+"_"+i)}">+${o.flash[i]}</em>`:"";
     return `<button class="slot r-${rar(c)}${used?" used":""}${sel?" sel":""}${o.open===i?" open":""}" style="${st}" onclick="${click}" ${used?"disabled":""}>
-      <div class="sflag" style="${flag(c.sel)}"></div><b>${val}</b>${o.mode!=="match"&&ch?`<i class="cb">+${ch}</i>`:""}<span>${esc(lastName(c.nome))}</span>${o.cat?`<small>${CAT_NAME[o.cat].slice(0,3)}</small>`:""}${fl}</button>`;
+      <div class="sflag" style="${flag(c.sel)}"></div><b>${val}</b>${o.mode==="select"&&ch?`<i class="cb">+${ch}</i>`:""}<span>${esc(lastName(c.nome))}</span>${o.goals&&o.goals[c.id]?`<i class="ball">${"⚽".repeat(o.goals[c.id])}</i>`:""}${o.cat?`<small>${CAT_NAME[o.cat].slice(0,3)}</small>`:""}${fl}</button>`;
   }).join("");
   return `<div class="pitch"><div class="lines"></div>${svg}${tiles}</div>`;
 }
@@ -522,21 +564,25 @@ function chemPanel(ids,coach,ch){
 }
 
 // ===== Telas =====
-function rulesHTML(){
+function rulesHTML(){ const sim=S&&S.mode==="sim"||(!S&&SETUP.mode==="sim");
   return `<ol class="steps">
   <li><b>Pacotes</b><p>Abra 10 pacotes de 5 cartas. Cada pacote destaca uma seleção, com 2 cartas dela. Marque com ★ as que quiser.</p></li>
   <li><b>Escalação e química</b><p>Encaixe 11 jogadores na formação e escolha 1 técnico. Jogadores da mesma seleção se ligam no campo e ganham pontos em todas as categorias:</p>
    <ul><li>+1 por colega da mesma seleção, até +3</li><li>+1 se um colega for do mesmo setor (defesa, meio ou ataque)</li><li>+1 se um colega for da mesma Copa</li><li>+1 por outro Super Trunfo no time, até +2</li><li>+1 se o técnico for da mesma seleção</li></ul></li>
-  <li><b>O lance</b><p>Quem tem a vez escolhe a categoria (Geral, Ataque, Criação ou Defesa) e joga uma carta <u>virada</u>. O outro só sabe a categoria e responde com outra carta virada. As duas viram juntas: número maior faz o gol e fica com a vez. Empate: ninguém marca.</p></li>
+  ${sim?`<li><b>A partida</b><p>O jogo roda os 90 minutos ao vivo. A força de cada time vem de ataque, criação e defesa dos jogadores, mais química, formação, técnico e estilo.</p></li>
+  <li><b>Tática e técnico</b><p>Escolha o estilo antes do jogo e mude quando quiser: Pressão alta vence Posse de bola, Posse vence Contra-ataque e Contra-ataque vence Pressão alta. A preleção deixa o time ligado por 10 minutos e pode ser usada 3 vezes por jogo. O rival também tem 3.</p></li>`:`  <li><b>O lance</b><p>Quem tem a vez escolhe a categoria (Geral, Ataque, Criação ou Defesa) e joga uma carta <u>virada</u>. O outro só sabe a categoria e responde com outra carta virada. As duas viram juntas: número maior faz o gol e fica com a vez. Empate: ninguém marca.</p></li>
   <li><b>Partida</b><p>Cada carta joga uma vez, então são 11 lances. A preleção do técnico soma o bônus dele à carta e pode ser usada 3 vezes por jogo. O rival também tem 3.</p></li>
-  <li><b>Copa</b><p>32 seleções históricas, grupos de 4 (os 2 primeiros passam) e mata-mata com pênaltis. Rivais têm +${BOT_CHEM} de entrosamento em todas as cartas. Super Trunfo são as cartas raras de nota 90 ou mais.</p></li></ol>`;
+`}
+  <li><b>Copa</b><p>32 seleções históricas, grupos de 4 (os 2 primeiros passam) e mata-mata com pênaltis. Rivais têm +${sim?SIM_BOT_CHEM:BOT_CHEM} de entrosamento em todos os jogadores. Super Trunfo são as cartas raras de nota 90 ou mais.${sim?" No mata-mata, empate vai para prorrogação e pênaltis.":""}</p></li></ol>`;
 }
 function vRules(){ return `<div class="page">${tools()}<header class="bar"><b>Como jogar</b></header>${rulesHTML()}<button class="btn primary" onclick="rulesOk()">Entendi, abrir pacotes</button></div>`; }
 function vHome(){
   const sv=loadSave(), f=FORMATIONS[SETUP.form];
   return `<div class="page">${tools()}<header class="hero"><div class="deck"><div></div><div></div><div></div></div><h1><span>Super Trunfo</span>das Copas</h1>
   <p>Monte seu time com cartas de 2002 a 2022, forme combinações da mesma seleção e dispute a Copa lance a lance.</p></header>
-  <section class="panel"><h2>Formação</h2>
+  <section class="panel"><h2>Modo de jogo</h2>
+  <div class="modes">${[["cartas","Super Trunfo","Cartas viradas e categorias, lance a lance."],["sim","Simulação","Time contra time, 90 minutos ao vivo, com tática e preleção."]].map(([k,t,d])=>`<button class="mode${SETUP.mode===k?" on":""}" onclick="setMode('${k}')"><b>${t}</b><span>${d}</span></button>`).join("")}</div>
+  <h2>Formação</h2>
   <div class="forms">${Object.keys(FORMATIONS).map(k=>`<button class="form${SETUP.form===k?" on":""}" onclick="setForm('${k}')"><b>${k}</b></button>`).join("")}</div>
   <p class="hint">${FORM_HINT[SETUP.form]} ${["GOL","ZAG","LAT","VOL","MEI","ATA"].map(p=>f[p]+" "+POS_NAME[p].toLowerCase()+(f[p]>1?"s":"")).join(", ")}.</p>
   <h2>Copas no baralho</h2>
@@ -596,7 +642,7 @@ function vTable(){
   return `<div class="page">${tools()}<header class="bar"><b>${STAGE_NAME[S.stage]}</b></header>
   <section class="next"><div class="vs"><div><i style="background:var(--gold)"></i>Seu time</div><em>×</em><div><i style="${flag(t.sel)}"></i>${esc(t.name)}</div></div>
   <p class="sub">Força do rival ${t.str.toFixed(1)}, a sua ${S.teams[0].str.toFixed(1)}. Técnico rival: ${t.coach?esc(C[t.coach].nome):"nenhum"}.</p>
-  <button class="btn primary" onclick="startMatch()">Entrar em campo</button></section>${body}</div>`;
+  <button class="btn primary" onclick="${S.mode==="sim"?"goPre()":"startMatch()"}">Entrar em campo</button></section>${body}</div>`;
 }
 function vMatch(){
   const m=S.match, op=S.teams[m.opp], me=S.teams[0], mc=C[me.coach], chem=me.chem, cat=m.cat;
@@ -641,7 +687,8 @@ function vPost(){
   const m=S.match, op=S.teams[m.opp];
   const res=m.gm>m.gb?"Vitória":m.gm<m.gb?"Derrota":m.pens?(m.pens.win?"Classificado nos pênaltis":"Eliminado nos pênaltis"):"Empate";
   const pen=m.pens?`<div class="pens"><div><span>Você</span>${m.pens.me.map(x=>`<i class="${x?"g":"x"}"></i>`).join("")}</div><div><span>${esc(op.name)}</span>${m.pens.bot.map(x=>`<i class="${x?"g":"x"}"></i>`).join("")}</div></div>`:"";
-  return `<div class="page center">${tools()}<section class="next"><p>${STAGE_NAME[S.stage]}</p><h2>${res}</h2><div class="final">Seu time <b>${m.gm} × ${m.gb}</b> ${esc(op.name)}</div>${pen}
+  return `<div class="page center">${tools()}<section class="next"><p>${STAGE_NAME[S.stage]}</p><h2>${res}</h2><div class="final">Seu time <b>${m.gm} × ${m.gb}</b> ${esc(op.name)}</div>${m.sim&&m.et?`<p class="sub">Com prorrogação</p>`:""}${pen}
+  ${m.sim?`<ul class="feed post">${m.ev.filter(e=>e.t==="gol").reverse().map(e=>`<li class="s-${e.side}"><em>${e.min}'</em><span>${e.txt}</span></li>`).join("")||"<li><span>Sem gols</span></li>"}</ul>`:""}
   <button class="btn primary" onclick="advance()">Continuar</button></section></div>`;
 }
 function vEnd(){
@@ -654,16 +701,17 @@ function vEnd(){
 // ===== Ações =====
 let RULES=false;
 function render(){
-  const v=!S?vHome():({rules:vRules,packs:vPacks,select:vSelect,table:vTable,match:vMatch,post:vPost,end:vEnd})[S.screen]();
+  const v=!S?vHome():({rules:vRules,packs:vPacks,select:vSelect,table:vTable,match:vMatch,sim:vSim,post:vPost,end:vEnd})[S.screen]();
   document.getElementById("app").innerHTML=v+(RULES?`<div class="modal" onclick="if(event.target===this)showRules(false)"><div class="mbox"><header class="bar"><b>Regras</b><button class="chip" onclick="showRules(false)">Fechar</button></header>${rulesHTML()}</div></div>`:"");
 }
 const top0=()=>scrollTo(0,0);
 function showRules(v){ RULES=v; render(); }
+function setMode(k){ SETUP.mode=k; render(); }
 function setForm(k){ SETUP.form=k; render(); }
 function togY(y){ SETUP.copas=SETUP.copas.includes(y)?SETUP.copas.filter(x=>x!==y):[...SETUP.copas,y].sort(); render(); }
-function newGame(){ goFS(); S={screen:"rules",copas:SETUP.copas.slice(),form:SETUP.form,packs:genPacks(SETUP.copas,SETUP.form),opened:0,star:[]}; buildPrior(S.copas); save(); render(); top0(); }
+function newGame(){ goFS(); S={screen:"rules",mode:SETUP.mode,copas:SETUP.copas.slice(),form:SETUP.form,packs:genPacks(SETUP.copas,SETUP.form),opened:0,star:[]}; buildPrior(S.copas); save(); render(); top0(); }
 function rulesOk(){ S.screen="packs"; save(); render(); top0(); }
-function resume(){ goFS(); S=loadSave(); buildPrior(S.copas); if(S.match) S.match.reveal=true; render(); }
+function resume(){ goFS(); S=loadSave(); buildPrior(S.copas); if(S.match){ S.match.reveal=true; if(S.match.phase==="live") S.match.phase="paused"; } render(); }
 function newCup(){ clearSave(); S=null; render(); top0(); }
 function openPack(){ if(S.opened<10){S.opened++; save(); render(); top0();} }
 function openAll(){ S.opened=10; toSelect(); }
@@ -687,6 +735,113 @@ function clearSlot(){ if(S.open==="TEC") S.coach=null; else S.slots[S.open].id=n
 function setCat(k){ S.match.cat=k; render(); }
 function selCard(id){ if(S.match.phase!=="result"){ S.match.sel=id; render(); } }
 function togCoach(){ S.match.useCoach=!S.match.useCoach; render(); }
+
+// ===== Modo Simulação: 90 minutos ao vivo =====
+const STYLES=["Equilibrado","Posse de bola","Pressão alta","Contra-ataque"];
+const STYLE_HINT={"Equilibrado":"Sem vantagem nem fraqueza.","Posse de bola":"Mais meio-campo. Vence Contra-ataque.","Pressão alta":"Mais ataque, defesa exposta. Vence Posse de bola.","Contra-ataque":"Defesa forte. Vence Pressão alta."};
+const STYLE_MOD={"Equilibrado":[1,1,1],"Posse de bola":[1,1.04,1],"Pressão alta":[1.03,1,0.98],"Contra-ataque":[0.98,0.98,1.05]};
+const BEATS={"Pressão alta":"Posse de bola","Posse de bola":"Contra-ataque","Contra-ataque":"Pressão alta"};
+const FORM_MOD={"4-3-3":[1.03,1,0.99],"4-4-2":[1,1.01,1.01],"4-2-3-1":[1.01,1.02,1],"3-5-2":[1,1.03,0.99],"5-3-2":[0.97,0.99,1.05]};
+const W_AT={ATA:1,MEI:0.7,LAT:0.3,VOL:0.25}, W_MD={VOL:1,MEI:1,LAT:0.3,ATA:0.3}, W_DF={ZAG:1,LAT:0.8,VOL:0.6,GOL:1.8};
+const SIM_BOT_CHEM=2;
+const SPEEDS=[[1,600],[2,280],[4,110]];
+function formationOf(ids){ const c={}; ids.forEach(id=>c[C[id].pos]=(c[C[id].pos]||0)+1); for(const [k,v] of Object.entries(FORMATIONS)) if(Object.keys(v).every(p=>(c[p]||0)===v[p])) return k; return "4-4-2"; }
+function teamRatings(t,style,isMe){
+  const ps=t.ids.map(id=>C[id]), ch=id=>isMe?(t.chem[id]||0):SIM_BOT_CHEM;
+  const wavg=(W,k)=>{ let s=0,w=0; ps.forEach(p=>{const x=W[p.pos]||0; s+=x*(p[k]+ch(p.id)); w+=x;}); return w?s/w:60; };
+  const f=FORM_MOD[isMe?S.form:formationOf(t.ids)]||[1,1,1], s=STYLE_MOD[style]||[1,1,1], c=1+((t.coach?C[t.coach].ov:70)-75)*0.003;
+  return {at:wavg(W_AT,"at")*f[0]*s[0]*c, md:wavg(W_MD,"cr")*f[1]*s[1]*c, df:wavg(W_DF,"de")*f[2]*s[2]*c};
+}
+function botStyle(t){ const r=teamRatings(t,"Equilibrado",false), g=(r.at+r.md+r.df)/3, h=[...t.name].reduce((a,c)=>a+c.charCodeAt(0),0);
+  return g>82?(h%2?"Posse de bola":"Pressão alta"):g<74?"Contra-ataque":STYLES[h%4]; }
+function goPre(){
+  const opp=userOpp(), op=S.teams[opp];
+  S.match={sim:true,opp,ko:S.stage>=3,style:S.lastStyle||"Equilibrado",oppStyle:botStyle(op),min:0,gm:0,gb:0,ev:[],shA:0,shB:0,onA:0,onB:0,poss:0,
+    myCL:COACH_USES,botCL:op.coach?COACH_USES:0,boostA:0,boostB:0,luckA:Math.exp(gauss()*0.12),luckB:Math.exp(gauss()*0.12),phase:"pre",speed:0,running:false,flash:null,goals:{},my:[]};
+  S.screen="sim"; save(); render();
+}
+function gauss(){ let u=0,v=0; while(!u)u=rnd(); while(!v)v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function lambdas(m){
+  const me=S.teams[0], op=S.teams[m.opp], A=teamRatings(me,m.style,true), B=teamRatings(op,m.oppStyle,false);
+  let la=1.3*Math.pow((0.65*A.at+0.35*A.md)/(0.65*B.df+0.35*B.md),3)*m.luckA, lb=1.3*Math.pow((0.65*B.at+0.35*B.md)/(0.65*A.df+0.35*A.md),3)*m.luckB;
+  if(BEATS[m.style]===m.oppStyle){la*=1.08;lb*=0.95;} else if(BEATS[m.oppStyle]===m.style){lb*=1.08;la*=0.95;}
+  if(m.boostA>m.min){la*=1.25;lb*=0.92;} if(m.boostB>m.min){lb*=1.25;la*=0.92;}
+  const pa=A.md*A.md/(A.md*A.md+B.md*B.md)+(m.style==="Posse de bola"?0.05:m.style==="Contra-ataque"?-0.05:0)-(m.oppStyle==="Posse de bola"?0.05:m.oppStyle==="Contra-ataque"?-0.05:0);
+  return {la:Math.min(Math.max(la,0.15),5), lb:Math.min(Math.max(lb,0.15),5), pa:Math.min(Math.max(pa,0.25),0.75), A, B};
+}
+function wpickP(ps,f){ const w=ps.map(f), t=w.reduce((a,b)=>a+b,0); let r=rnd()*t; for(let i=0;i<ps.length;i++){ r-=w[i]; if(r<=0) return ps[i]; } return ps[ps.length-1]; }
+const scorerOf=t=>wpickP(t.ids.map(id=>C[id]).filter(p=>p.pos!=="GOL"),p=>Math.pow(Math.max(p.at,20)/60,4)*({ATA:3,MEI:1.6,LAT:0.5,VOL:0.6,ZAG:0.35})[p.pos]);
+const assistOf=(t,sc)=>wpickP(t.ids.map(id=>C[id]).filter(p=>p.pos!=="GOL"&&p!==sc),p=>Math.pow(Math.max(p.cr,20)/60,4)*({ATA:1.2,MEI:2.5,LAT:1,VOL:0.8,ZAG:0.2})[p.pos]);
+const keeperOf=t=>t.ids.map(id=>C[id]).find(p=>p.pos==="GOL")||C[t.ids[0]];
+function simMinute(){
+  const m=S.match, me=S.teams[0], op=S.teams[m.opp]; m.min++;
+  const {la,lb,pa}=lambdas(m); m.poss+=pa;
+  const shotsOf=l=>Math.min(Math.max(9+6*(l/1.3-1),4,),22);
+  [[la,"A",me,op],[lb,"B",op,me]].forEach(([l,side,T,O])=>{
+    const sh=shotsOf(l); if(rnd()>=sh/90) return;
+    const sc=scorerOf(T), gk=keeperOf(O); side==="A"?m.shA++:m.shB++;
+    if(rnd()<l/sh){ side==="A"?(m.gm++,m.onA++):(m.gb++,m.onB++); const as=rnd()<0.7?assistOf(T,sc):null;
+      if(side==="A") m.goals[sc.id]=(m.goals[sc.id]||0)+1;
+      m.ev.unshift({min:m.min,side,t:"gol",txt:`<b>GOL!</b> ${esc(sc.nome)}${as?` <small>(assist. ${esc(as.nome)})</small>`:""}`});
+      m.flash={side,nome:sc.nome,k:m.min+side+m.gm+m.gb}; }
+    else { const r=rnd(); if(r<0.4){ side==="A"?m.onA++:m.onB++; m.ev.unshift({min:m.min,side,t:"def",txt:`${esc(sc.nome)} finaliza, ${esc(gk.nome)} defende`}); }
+      else if(r<0.47) m.ev.unshift({min:m.min,side,t:"trave",txt:`Na trave! ${esc(sc.nome)} quase marca`});
+      else if(r<0.75) m.ev.unshift({min:m.min,side,t:"fora",txt:`${esc(sc.nome)} chuta para fora`}); }
+  });
+  // técnico rival reage
+  if(m.botCL>0&&m.boostB<=m.min&&((m.min===60&&m.gb<=m.gm)||(m.min===78&&m.gb<m.gm)||(m.min===100&&m.gb<=m.gm))){ m.botCL--; m.boostB=m.min+10; m.ev.unshift({min:m.min,side:"B",t:"tec",txt:`${esc(C[op.coach].nome)} chama o time para a preleção`}); }
+  if(m.ev.length>40) m.ev.length=40;
+  if(m.min===45){ m.phase="ht"; m.ev.unshift({min:45,t:"apito",txt:"Fim do primeiro tempo"}); }
+  else if(m.min===90){ if(m.ko&&m.gm===m.gb){ m.phase="etb"; m.ev.unshift({min:90,t:"apito",txt:"Empate: vai para a prorrogação"}); } else { m.phase="end"; m.ev.unshift({min:90,t:"apito",txt:"Fim de jogo"}); } }
+  else if(m.min===105&&m.ko) { m.phase="etht"; }
+  else if(m.min===120){ m.phase="end"; m.ev.unshift({min:120,t:"apito",txt:m.gm===m.gb?"Fim da prorrogação: pênaltis":"Fim da prorrogação"}); }
+}
+let CLOCK=null;
+function stopClock(){ if(CLOCK){clearInterval(CLOCK);CLOCK=null;} }
+function startClock(){
+  stopClock(); const m=S.match;
+  CLOCK=setInterval(()=>{ if(!S||!S.match||S.match!==m||m.phase!=="live"){stopClock();return;} simMinute(); if(m.phase!=="live") stopClock(); save(); render(); }, SPEEDS[m.speed][1]);
+}
+function kickoff(){ const m=S.match; S.lastStyle=m.style; m.phase="live"; m.ev.unshift({min:m.min,t:"apito",txt:m.min===0?"Bola rolando!":m.min===45?"Começa o segundo tempo":m.min===90?"Começa a prorrogação":"Segundo tempo da prorrogação"}); save(); render(); startClock(); }
+function togglePause(){ const m=S.match; if(m.phase==="live"){ m.phase="paused"; stopClock(); } else if(m.phase==="paused"){ m.phase="live"; startClock(); } save(); render(); }
+function setSpeed(i){ S.match.speed=i; if(S.match.phase==="live") startClock(); render(); }
+function setStyle(s){ S.match.style=s; if(S.match.min===0) S.lastStyle=s; save(); render(); }
+function callCoach(){ const m=S.match; if(m.myCL<=0||m.boostA>m.min) return; m.myCL--; m.boostA=m.min+10; m.ev.unshift({min:m.min,side:"A",t:"tec",txt:`Preleção de ${esc(C[S.teams[0].coach].nome)}: time ligado até ${m.min+10}'`}); save(); render(); }
+function skipToBreak(){ const m=S.match; stopClock(); if(m.phase==="paused") m.phase="live"; while(m.phase==="live") simMinute(); save(); render(); }
+function finishSim(){ stopClock(); const m=S.match; m.et=m.min>90; endMatch(); }
+function bars(l,a,b,fmt){ const t=a+b||1; return `<div class="sbar"><span>${fmt?fmt(a):a}</span><div><i style="width:${a/t*100}%"></i></div><em>${l}</em><div class="r"><i style="width:${b/t*100}%"></i></div><span>${fmt?fmt(b):b}</span></div>`; }
+function vSim(){
+  const m=S.match, op=S.teams[m.opp], me=S.teams[0], L=lambdas(m);
+  const clock=m.min<=90?`${m.min}'`:`${m.min}' <small>prorr.</small>`;
+  const score=`<header class="score"><span>Seu time</span><b>${m.gm}<i>×</i>${m.gb}</b><span>${esc(op.name)}</span>
+   <div class="clockrow"><span class="clock${m.phase==="live"?" run":""}">${m.phase==="pre"?"Pré-jogo":clock}</span><div class="prog"><i style="width:${Math.min(m.min,m.ko&&m.min>90?120:90)/(m.min>90?120:90)*100}%"></i></div></div></header>`;
+  const flash=m.flash&&m.phase!=="pre"?`<div class="goalfx v-${m.flash.side==="A"?"me":"bot"}${once("g"+m.flash.k)}"><b>GOOOL!</b><span>${esc(m.flash.nome)}</span></div>`:"";
+  const styles=`<div class="styles">${STYLES.map(s=>`<button class="chip${m.style===s?" on":""}" onclick="setStyle('${s}')">${s}</button>`).join("")}</div>
+    <p class="hint">${STYLE_HINT[m.style]} ${BEATS[m.style]===m.oppStyle?"<b class='up'>Leva vantagem sobre o estilo rival.</b>":BEATS[m.oppStyle]===m.style?"<b class='down'>O estilo rival leva vantagem.</b>":""}</p>`;
+  let mid="", dock="";
+  if(m.phase==="pre"){
+    const cmp=(l,a,b)=>`<div class="cmp"><span>${a.toFixed(1)}</span><em>${l}</em><span>${b.toFixed(1)}</span></div>`;
+    mid=`<div class="prebox"><h3>Seu time × ${esc(op.name)}</h3>${cmp("Ataque",L.A.at,L.B.at)}${cmp("Meio",L.A.md,L.B.md)}${cmp("Defesa",L.A.df,L.B.df)}
+      <p class="hint">${esc(op.name)} joga no ${formationOf(op.ids)} com <b>${m.oppStyle}</b>${op.coach?`, técnico ${esc(C[op.coach].nome)}`:""}. Química e entrosamento já estão somados.</p>
+      <h3>Seu estilo</h3>${styles}</div>`;
+    dock=`<button class="btn primary" onclick="kickoff()">Apito inicial</button>`;
+  } else {
+    const pm=m.min?Math.round(m.poss/m.min*100):50;
+    const feed=`<ul class="feed">${m.ev.map((e,i)=>`<li class="e-${e.t} s-${e.side||"n"}${i<3?once("ev"+m.opp+"_"+S.stage+"_"+e.min+e.t+(e.side||"")+i).replace("enter","new"):""}"><em>${e.min}'</em><span>${e.txt}</span></li>`).join("")}</ul>`;
+    mid=`<div class="stats2">${bars("Posse",pm,100-pm,x=>x+"%")}${bars("Finalizações",m.shA,m.shB)}${bars("No gol",m.onA,m.onB)}</div>${feed}`;
+    const coachBtn=m.myCL>0?`<button class="toggle${m.boostA>m.min?" on":""}" onclick="callCoach()" ${m.boostA>m.min||m.phase==="end"?"disabled":""}>${m.boostA>m.min?`Preleção até ${m.boostA}'`:"Preleção"}<small>${m.myCL} de ${COACH_USES}</small></button>`:`<span class="cu">Preleções usadas</span>`;
+    if(m.phase==="live"||m.phase==="paused") dock=`<details class="tact"><summary>Tática: ${m.style}</summary>${styles}</details>
+      <div class="drow">${coachBtn}<div class="speed">${SPEEDS.map(([x],i)=>`<button class="chip${m.speed===i?" on":""}" onclick="setSpeed(${i})">${x}x</button>`).join("")}</div>
+      <button class="btn primary" onclick="togglePause()">${m.phase==="live"?"Pausar":"Continuar"}</button></div>
+      <button class="link" onclick="skipToBreak()">Pular para o ${m.min<45?"intervalo":m.min<90?"fim":"fim da prorrogação"}</button>`;
+    else if(m.phase==="ht"||m.phase==="etb"||m.phase==="etht") dock=`<p class="turn"><b>${m.phase==="ht"?"Intervalo":m.phase==="etb"?"Prorrogação":"Intervalo da prorrogação"}.</b> Ajuste a tática.</p>${styles}<div class="drow">${coachBtn}<button class="btn primary" onclick="kickoff()">${m.phase==="ht"?"Começar 2º tempo":"Rolar a bola"}</button></div>`;
+    else dock=`<button class="btn primary" onclick="finishSim()">${m.ko&&m.gm===m.gb?"Ir para os pênaltis":"Ver resultado"}</button>`;
+  }
+  return `<div class="match sim">${tools()}
+   <div class="mleft">${pitch({mode:"sim",chem:me.chem,goals:m.goals,dim:true})}</div>
+   <div class="mright">${score}<div class="arena simarena">${mid}</div><div class="dock">${dock}</div></div>${flash}</div>`;
+}
+
 render();
 
 // ===== App offline =====

@@ -1,5 +1,5 @@
 // Troque a versão sempre que atualizar o index.html, para o celular baixar a nova.
-const VERSION = "stc-v3";
+const VERSION = "stc-v4";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
